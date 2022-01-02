@@ -1,6 +1,14 @@
 import React from "react";
 
-import { Container } from "./styles";
+import {
+  Container,
+  Flex,
+  Avatar,
+  Row,
+  PeopleIcon,
+  StarIcon,
+  Collumn,
+} from "./styles";
 
 interface ProfileDataProps {
   username: string;
@@ -52,9 +60,7 @@ const ProfileData: React.FC<ProfileDataProps> = ({
       </Row>
 
       <Collumn>
-        <li>
-          
-        </li>
+        <li></li>
       </Collumn>
     </Container>
   );
