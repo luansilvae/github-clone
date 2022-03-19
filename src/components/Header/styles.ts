@@ -1,6 +1,5 @@
-import styled from 'styled-components';
-
-import { FaGithub } from 'react-icons/fa' 
+import { FaGithub } from "react-icons/fa";
+import styled from "styled-components";
 
 export const Container = styled.div`
   display: flex;
@@ -14,7 +13,7 @@ export const GithubLogo = styled(FaGithub)`
   width: 32px;
   height: 32px;
   flex-shrink: 0;
-`
+`;
 
 export const SearchForm = styled.form`
   padding-left: 16px;
@@ -26,11 +25,24 @@ export const SearchForm = styled.form`
     border-radius: 6px;
     padding: 7px 12px;
     width: 100%;
+    color: #dfdfdf;
 
-    transition: width .2s ease-out, color .2s ease-out;
+    ::placeholder {
+      color: #dfdfdf;
+    }
 
     &:focus {
-      width: 318px;
+      ::placeholder {
+        color: var(--search);
+      }
     }
+
+    @media (min-width: 768px) {
+      &:focus {
+        width: 318px;
+      }
+    }
+
+    transition: width 0.2s ease-out, color 0.2s ease-out;
   }
-`
+`;
