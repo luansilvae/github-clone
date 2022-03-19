@@ -3,17 +3,11 @@ import { FaGithub } from "react-icons/fa";
 import { RiBookMarkLine, RiStarLine } from "react-icons/ri";
 import styled, { css } from "styled-components";
 
-const iconCSS = css`
-  width: 16px;
-  height: 16px;
-  fill: var(--icon);
-  flex-shrink: 0;
-`;
-
 export const Container = styled.div`
   display: flex;
   flex-direction: column;
   padding: 16px;
+  min-height: calc(100vh - 154px);
 
   > p {
     font-size: 16px;
@@ -50,6 +44,13 @@ export const BreadCrumb = styled.div`
   > span {
     padding: 0 5px;
   }
+`;
+
+const iconCSS = css`
+  width: 16px;
+  height: 16px;
+  fill: var(--icon);
+  flex-shrink: 0;
 `;
 
 export const RepoIcon = styled(RiBookMarkLine)`
