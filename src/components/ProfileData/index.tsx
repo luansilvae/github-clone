@@ -1,15 +1,9 @@
 import React from "react";
-
 import {
-  Container,
-  Flex,
-  Avatar,
-  Row,
-  PeopleIcon,
-  Column,
-  LocationIcon,
-  BlogIcon,
+  Avatar, BlogIcon, Column, Container,
+  Flex, LocationIcon, PeopleIcon, Row
 } from "./styles";
+
 
 interface ProfileDataProps {
   username: string;
@@ -45,8 +39,8 @@ const ProfileData: React.FC<ProfileDataProps> = ({
         <li>
           <PeopleIcon />
           <strong>{followers}</strong>
-          <span>·</span>
           <span>followers</span>
+          <span>·</span>
         </li>
         <li>
           <strong>{following}</strong>
