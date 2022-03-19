@@ -6,8 +6,9 @@ import {
   Avatar,
   Row,
   PeopleIcon,
-  StarIcon,
-  Collumn,
+  Column,
+  LocationIcon,
+  BlogIcon,
 } from "./styles";
 
 interface ProfileDataProps {
@@ -16,9 +17,8 @@ interface ProfileDataProps {
   avatarUrl: string;
   followers: number;
   following: number;
-  stars: number;
-  location: string;
-  blog: string;
+  location?: string;
+  blog?: string;
 }
 
 const ProfileData: React.FC<ProfileDataProps> = ({
@@ -27,7 +27,6 @@ const ProfileData: React.FC<ProfileDataProps> = ({
   avatarUrl,
   followers,
   following,
-  stars,
   location,
   blog,
 }) => {
@@ -45,23 +44,26 @@ const ProfileData: React.FC<ProfileDataProps> = ({
       <Row>
         <li>
           <PeopleIcon />
-          <b>{followers}</b>
-          <span>followers</span>
+          <strong>{followers}</strong>
           <span>·</span>
+          <span>followers</span>
         </li>
         <li>
-          <b>{following}</b>
+          <strong>{following}</strong>
           <span>following</span>
-        </li>
-        <li>
-          <StarIcon />
-          <b>{stars}</b>
         </li>
       </Row>
 
-      <Collumn>
-        <li></li>
-      </Collumn>
+      <Column>
+        <li>
+          <LocationIcon /> 
+          <span>{location}</span>
+        </li>
+        <li>
+          <BlogIcon /> 
+          <span>{blog}</span>
+        </li>
+      </Column>
     </Container>
   );
 };
