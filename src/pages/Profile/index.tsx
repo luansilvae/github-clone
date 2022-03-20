@@ -1,4 +1,8 @@
-import React, { useEffect, useState } from "react";
+import React, {
+  ChangeEvent, useCallback,
+  useEffect,
+  useState
+} from "react";
 import { useParams } from "react-router-dom";
 import { APIRepo, APIUser } from "../../@types";
 import ProfileData from "../../components/ProfileData";
@@ -14,6 +18,7 @@ interface Data {
 const Profile: React.FC = () => {
   const { username = "luansilvae" } = useParams();
   const [data, setData] = useState<Data>();
+  const [filteredRepos, setFilteredRepos] = useState<APIRepo[] | undefined>([]);
 
   useEffect(() => {
     Promise.all([
@@ -31,19 +36,31 @@ const Profile: React.FC = () => {
 
       const user = await userResponse.json();
       const repos = await reposResponse.json();
-      
+
       setData({
         user,
         repos,
       });
+
+      setFilteredRepos(repos);
     });
   }, [username]);
+
+  const handleSearch = useCallback((event: ChangeEvent<HTMLInputElement>) => {
+    const filteredRepos = data?.repos?.filter((repo) =>
+      repo.name
+        .toLocaleLowerCase()
+        .includes(event.target.value.toLocaleLowerCase())
+    );
+
+    setFilteredRepos(filteredRepos);
+  }, [data]);
 
   if (data?.error) {
     return <h1>{data.error}</h1>;
   }
 
-  if (!data?.user || !data?.repos) {
+  if (!data?.user || !data?.repos ||  !filteredRepos) {
     return <h1>Loading...</h1>;
   }
 
@@ -63,10 +80,19 @@ const Profile: React.FC = () => {
         </LeftSide>
         <RightSide>
           <Repos>
-            <h2>Random repos</h2>
+            <header>
+              <h2>Repositories</h2>
+              <input
+                type="text"
+                placeholder="Search a repository"
+                onChange={handleSearch}
+              />
+            </header>
 
             <div>
-              {data.repos.map((repo) => (
+              {filteredRepos.length <= 0 && (<span className="not-found">No repository found.</span>)}
+
+              {filteredRepos.map((repo) => (
                 <RepoCard
                   key={repo.name}
                   username={repo.owner.login}
