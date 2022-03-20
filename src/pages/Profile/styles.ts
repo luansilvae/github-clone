@@ -18,10 +18,13 @@ export const Main = styled.div`
   }
 `;
 
-export const LeftSide = styled.div`
+export const LeftSide = styled.aside`
+  height: min-content;
   @media (min-width: 768px) {
     padding: 0 var(--horizontalPadding);
     width: 25%;
+    position: sticky;
+    top: 54px;
   }
 `;
 

@@ -1,6 +1,6 @@
 import { FormEvent, useCallback, useMemo, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { Container, GithubLogo, SearchForm } from "./styles";
+import { Container, GithubLogo, SearchForm, Wrapper } from "./styles";
 
 const Header: React.FC = () => {
   const [search, setSearch] = useState("");
@@ -19,14 +19,16 @@ const Header: React.FC = () => {
 
   return (
     <Container>
-      <GithubLogo />
-      <SearchForm onSubmit={handleSubmit}>
-        <input
-          placeholder="Enter username"
-          value={search}
-          onChange={(e) => setSearch(e.target.value)}
-        />
-      </SearchForm>
+      <Wrapper>
+        <GithubLogo />
+        <SearchForm onSubmit={handleSubmit}>
+          <input
+            placeholder="Enter username"
+            value={search}
+            onChange={(e) => setSearch(e.target.value)}
+          />
+        </SearchForm>
+      </Wrapper>
     </Container>
   );
 };

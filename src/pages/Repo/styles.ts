@@ -8,9 +8,16 @@ export const Container = styled.div`
   flex-direction: column;
   padding: 16px;
   min-height: calc(100vh - 154px);
+  max-width: 1280px;
+  margin: 0 auto;
+
+  @media (min-width: 768px) {
+    padding: 32px;
+  }
 
   > p {
     font-size: 16px;
+    max-width: 450px;
   }
 `;
 
@@ -95,7 +102,7 @@ export const LinkButton = styled.a`
     color: var(--primary);
   }
 
-   svg {
+  svg {
     fill: var(--primary);
     margin-right: 10px;
   }
