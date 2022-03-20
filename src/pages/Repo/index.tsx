@@ -1,42 +1,82 @@
-import React from 'react';
-import { Link } from 'react-router-dom';
-import { BreadCrumb, Container, ForkIcon, GithubIcon, LinkButton, RepoIcon, StarIcon, Stats } from './styles';
+import React, { useEffect, useState } from "react";
+import { Link, useParams } from "react-router-dom";
+import { APIRepo } from "../../@types";
+import {
+  BreadCrumb,
+  Container,
+  ForkIcon,
+  GithubIcon,
+  LinkButton,
+  RepoIcon,
+  StarIcon,
+  Stats
+} from "./styles";
 
+interface Data {
+  repo?: APIRepo;
+  error?: string;
+}
 
 const Repo: React.FC = () => {
+  const { username, reponame } = useParams();
+
+  const [data, setData] = useState<Data>();
+
+  useEffect(() => {
+    fetch(`https://api.github.com/repos/${username}/${reponame}`).then(
+      async (response) =>
+        setData(
+          response.status === 404
+            ? { error: "Repository not found!" }
+            : { repo: await response.json() }
+        )
+    );
+  }, [reponame, username]);
+
+  if (data?.error) {
+    return <h1>{data.error}</h1>;
+  }
+
+  if (!data?.repo) {
+    return <h1>Loading...</h1>;
+  }
+
   return (
     <Container>
       <BreadCrumb>
         <RepoIcon />
-        <Link className={'username'} to={'/luansilvae'} >luansilvae</Link>
-        
+        <Link  className={'username'} to={`/${username}`}>
+        {username}
+        </Link>
+
         <span>/</span>
 
-        <Link className={'reponame'} to={'/luansilvae/github-clone'}>github clone</Link>
+        <Link className={'reponame'} to={`/${username}/${reponame}`}>
+        {reponame}
+        </Link>
       </BreadCrumb>
 
-      <p>Clone do github com ReactJS e Styled components</p>
+      <p>{data.repo.description}</p>
 
       <Stats>
         <li>
           <StarIcon />
-          <strong>9</strong>
+          <strong>{data.repo.stargazers_count}</strong>
           <span>Stars</span>
         </li>
         <li>
           <ForkIcon />
-          <strong>0</strong>
+          <strong>{data.repo.forks}</strong>
           <span>forks</span>
         </li>
       </Stats>
 
-      <LinkButton href={'https://github.com/luansilvae'}>
+      <LinkButton href={data.repo.html_url}>
         <GithubIcon />
         <span>View on Github</span>
       </LinkButton>
-
     </Container>
   );
-}
+};
 
 export default Repo;

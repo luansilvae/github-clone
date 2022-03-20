@@ -36,7 +36,7 @@ export const TopSide = styled.div`
     font-size: 12px;
     color: var(--gray);
     letter-spacing: 0.1px;
-   }
+  }
 `;
 
 const iconCSS = css`
@@ -57,7 +57,7 @@ export const BottomSide = styled.div`
 
     > li {
       display: flex;
-      align-items:center;
+      align-items: center;
       margin-right: 16px;
 
       > span {
@@ -74,14 +74,47 @@ export const BottomSide = styled.div`
     border-radius: 50%;
     flex-shrink: 0;
 
-    &.other {
-      background: var(--other-language);
-    } 
     &.javascript {
       background: var(--javascript);
     }
+    &.html {
+      background: var(--html);
+    }
     &.typescript {
       background: var(--typescript);
+    }
+    &.html {
+      background: var(--html);
+    }
+    &.java {
+      background: var(--java);
+    }
+    &.kotlin {
+      background: var(--kotlin);
+    }
+    &.lua {
+      background: var(--lua);
+    }
+    &.css {
+      background: var(--css);
+    }
+    &.json {
+      background: var(--json);
+    }
+    &.markdown {
+      background: var(--markdown);
+    }
+    &.php {
+      background: var(--php);
+    }
+    &.python {
+      background: var(--python);
+    }
+    &.rust {
+      background: var(--rust);
+    }
+    &.ruby {
+      background: var(--ruby);
     }
   }
 `;
