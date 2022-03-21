@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import { Link, useParams } from "react-router-dom";
 import { APIRepo } from "../../@types";
 import Loading from "../../components/Loading";
+import NotFound from "../../components/NotFound";
 import {
   BreadCrumb,
   Container,
@@ -35,7 +36,11 @@ const Repo: React.FC = () => {
   }, [reponame, username]);
 
   if (data?.error) {
-    return <h1>{data.error}</h1>;
+    return (
+      <NotFound>
+        <h2>{data.error}</h2>
+      </NotFound>
+    );
   }
 
   if (!data?.repo) {
@@ -46,14 +51,14 @@ const Repo: React.FC = () => {
     <Container>
       <BreadCrumb>
         <RepoIcon />
-        <Link  className={'username'} to={`/${username}`}>
-        {username}
+        <Link className={"username"} to={`/${username}`}>
+          {username}
         </Link>
 
         <span>/</span>
 
-        <Link className={'reponame'} to={`/${username}/${reponame}`}>
-        {reponame}
+        <Link className={"reponame"} to={`/${username}/${reponame}`}>
+          {reponame}
         </Link>
       </BreadCrumb>
 

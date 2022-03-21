@@ -8,6 +8,7 @@ import React, {
 import { useParams } from "react-router-dom";
 import { APIRepo, APIUser } from "../../@types";
 import Loading from "../../components/Loading";
+import NotFound from "../../components/NotFound";
 import ProfileData from "../../components/ProfileData";
 import RepoCard from "../../components/RepoCard";
 import { Container, LeftSide, Main, Repos, RightSide } from "./styles";
@@ -67,10 +68,14 @@ const Profile: React.FC = () => {
   );
 
   if (data?.error) {
-    return <h1>{data.error}</h1>;
+    return (
+      <NotFound>
+        <h2>{data.error}</h2>
+      </NotFound>
+    );
   }
 
-  if (!data?.user || !data?.repos || !filteredRepos ) {
+  if (!data?.user || !data?.repos || !filteredRepos) {
     return <Loading />;
   }
 
