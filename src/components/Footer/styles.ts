@@ -6,6 +6,11 @@ export const Container = styled.footer`
   flex-direction: column;
   align-items: center;
   margin: 25px 32px;
+  gap: 16px;
+
+  > span {
+    font-size: 12px;
+  }
 `;
 
 export const Line = styled.div`

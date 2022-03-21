@@ -6,6 +6,7 @@ const Footer: React.FC = () => {
     <Container>
       <Line />
       <GithubIcon />
+      <span>This is an unofficial Github page.</span>
     </Container>
   );
 };

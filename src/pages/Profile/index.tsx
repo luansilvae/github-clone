@@ -23,10 +23,6 @@ const Profile: React.FC = () => {
   const { username = "luansilvae" } = useParams();
   const [data, setData] = useState<Data>();
   const [filteredRepos, setFilteredRepos] = useState<APIRepo[] | undefined>([]);
-  const isFetching = useMemo(
-    () => !data?.user || !data?.repos || !filteredRepos,
-    [data, filteredRepos]
-  );
 
   useEffect(() => {
     Promise.all([
