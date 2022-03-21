@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { Link, useParams } from "react-router-dom";
 import { APIRepo } from "../../@types";
+import Loading from "../../components/Loading";
 import {
   BreadCrumb,
   Container,
@@ -38,7 +39,7 @@ const Repo: React.FC = () => {
   }
 
   if (!data?.repo) {
-    return <h1>Loading...</h1>;
+    return <Loading />;
   }
 
   return (

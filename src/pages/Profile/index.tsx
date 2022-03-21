@@ -1,10 +1,13 @@
 import React, {
-  ChangeEvent, useCallback,
+  ChangeEvent,
+  useCallback,
   useEffect,
-  useState
+  useMemo,
+  useState,
 } from "react";
 import { useParams } from "react-router-dom";
 import { APIRepo, APIUser } from "../../@types";
+import Loading from "../../components/Loading";
 import ProfileData from "../../components/ProfileData";
 import RepoCard from "../../components/RepoCard";
 import { Container, LeftSide, Main, Repos, RightSide } from "./styles";
@@ -19,6 +22,10 @@ const Profile: React.FC = () => {
   const { username = "luansilvae" } = useParams();
   const [data, setData] = useState<Data>();
   const [filteredRepos, setFilteredRepos] = useState<APIRepo[] | undefined>([]);
+  const isFetching = useMemo(
+    () => !data?.user || !data?.repos || !filteredRepos,
+    [data, filteredRepos]
+  );
 
   useEffect(() => {
     Promise.all([
@@ -46,22 +53,25 @@ const Profile: React.FC = () => {
     });
   }, [username]);
 
-  const handleSearch = useCallback((event: ChangeEvent<HTMLInputElement>) => {
-    const filteredRepos = data?.repos?.filter((repo) =>
-      repo.name
-        .toLocaleLowerCase()
-        .includes(event.target.value.toLocaleLowerCase())
-    );
+  const handleSearch = useCallback(
+    (event: ChangeEvent<HTMLInputElement>) => {
+      const filteredRepos = data?.repos?.filter((repo) =>
+        repo.name
+          .toLocaleLowerCase()
+          .includes(event.target.value.toLocaleLowerCase())
+      );
 
-    setFilteredRepos(filteredRepos);
-  }, [data]);
+      setFilteredRepos(filteredRepos);
+    },
+    [data]
+  );
 
   if (data?.error) {
     return <h1>{data.error}</h1>;
   }
 
-  if (!data?.user || !data?.repos ||  !filteredRepos) {
-    return <h1>Loading...</h1>;
+  if (!data?.user || !data?.repos || !filteredRepos ) {
+    return <Loading />;
   }
 
   return (
@@ -90,7 +100,9 @@ const Profile: React.FC = () => {
             </header>
 
             <div>
-              {filteredRepos.length <= 0 && (<span className="not-found">No repository found.</span>)}
+              {filteredRepos.length <= 0 && (
+                <span className="not-found">No repository found.</span>
+              )}
 
               {filteredRepos.map((repo) => (
                 <RepoCard
